@@ -75,11 +75,23 @@ export default function RingingScreen() {
         shouldDuckAndroid: false,
       });
 
-      // Create a simple alarm sound using oscillator (works on all platforms)
-      // In production, you'd load an actual alarm sound file
-      const alarmSoundUrl = process.env.EXPO_PUBLIC_ALARM_SOUND_URL || 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg';
+      // Load alarm sound from environment variable
+      const alarmSoundUrl = process.env.EXPO_PUBLIC_ALARM_SOUND_URL;
+      
+      if (!alarmSoundUrl) {
+        console.error('EXPO_PUBLIC_ALARM_SOUND_URL is not configured');
+        // Fallback to vibration if sound URL not configured
+        if (settings.vibrateEnabled) {
+          const vibrateInterval = setInterval(() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+          }, 1000);
+          // @ts-ignore
+          soundRef.current = { stopAsync: () => clearInterval(vibrateInterval) };
+        }
+        return;
+      }
+      
       const { sound } = await Audio.Sound.createAsync(
-        // Using a beep sound - you can replace with require('./assets/alarm.mp3')
         { uri: alarmSoundUrl },
         { shouldPlay: true, isLooping: true, volume: 1.0 }
       );
