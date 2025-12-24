@@ -33,7 +33,10 @@ export const scheduleAlarmNotification = async (alarm: Alarm): Promise<string | 
           type: 'alarm',
         },
       },
-      trigger: triggerDate,
+      trigger: {
+        date: triggerDate,
+        channelId: 'alarm',
+      },
     });
     
     console.log(`Alarm ${alarm.id} scheduled for ${format(triggerDate, 'PPpp')}`);
