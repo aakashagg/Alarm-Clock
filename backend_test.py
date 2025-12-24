@@ -7,10 +7,11 @@ Tests the health check endpoint and basic functionality
 import requests
 import json
 import sys
+import os
 from datetime import datetime
 
-# Use the backend URL from frontend .env
-BACKEND_URL = "https://awake-alarm.preview.emergentagent.com/api"
+# Use the backend URL from environment variable
+BACKEND_URL = os.environ.get('EXPO_PUBLIC_BACKEND_URL', 'http://localhost:8001') + "/api"
 
 def test_health_check():
     """Test the basic health check endpoint GET /api/"""
