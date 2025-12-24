@@ -4,6 +4,8 @@ import { useRouter } from 'expo-router';
 import { useAlarms } from '../contexts/AlarmContext';
 import { Ionicons } from '@expo/vector-icons';
 import { formatTime } from '../utils/timeFormatter';
+import { CircularTimePicker } from '../components/CircularTimePicker';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function AddAlarm() {
   const router = useRouter();
