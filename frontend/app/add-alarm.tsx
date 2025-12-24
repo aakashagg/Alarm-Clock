@@ -16,24 +16,11 @@ export default function AddAlarm() {
   const [label, setLabel] = useState('');
   const [isPM, setIsPM] = useState(false);
 
-  const handleHourChange = (increment: boolean) => {
-    if (settings.use24Hour) {
-      let newHour = increment ? hour + 1 : hour - 1;
-      if (newHour > 23) newHour = 0;
-      if (newHour < 0) newHour = 23;
-      setHour(newHour);
-    } else {
-      let newHour = increment ? hour + 1 : hour - 1;
-      if (newHour > 12) newHour = 1;
-      if (newHour < 1) newHour = 12;
-      setHour(newHour);
-    }
+  const handleHourChange = (newHour: number) => {
+    setHour(newHour);
   };
 
-  const handleMinuteChange = (increment: boolean) => {
-    let newMinute = increment ? minute + 1 : minute - 1;
-    if (newMinute > 59) newMinute = 0;
-    if (newMinute < 0) newMinute = 59;
+  const handleMinuteChange = (newMinute: number) => {
     setMinute(newMinute);
   };
 
