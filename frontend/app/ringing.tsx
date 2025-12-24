@@ -77,9 +77,10 @@ export default function RingingScreen() {
 
       // Create a simple alarm sound using oscillator (works on all platforms)
       // In production, you'd load an actual alarm sound file
+      const alarmSoundUrl = process.env.EXPO_PUBLIC_ALARM_SOUND_URL || 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg';
       const { sound } = await Audio.Sound.createAsync(
         // Using a beep sound - you can replace with require('./assets/alarm.mp3')
-        { uri: 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg' },
+        { uri: alarmSoundUrl },
         { shouldPlay: true, isLooping: true, volume: 1.0 }
       );
       
